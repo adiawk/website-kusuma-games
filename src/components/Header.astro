@@ -1,0 +1,75 @@
+---
+import Wordmark from "./Wordmark.astro";
+
+const pathname = Astro.url.pathname;
+
+const links = [
+	{ href: "/games/", label: "Games" },
+	{ href: "/about/", label: "About" },
+	{ href: "/support/", label: "Support" },
+];
+
+function isActive(href: string) {
+	if (href === "/games/") return pathname.startsWith("/games");
+	if (href === "/about/") return pathname.startsWith("/about");
+	if (href === "/support/") return pathname.startsWith("/support");
+	return pathname === href;
+}
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-ink/80 backdrop-blur-md">
+	<div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5">
+		<Wordmark />
+		<nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+			{
+				links.map((link) => (
+					<a
+						href={link.href}
+						class:list={[
+							"rounded-full px-3.5 py-1.5 text-sm font-semibold tracking-wide transition",
+							isActive(link.href)
+								? "bg-white/8 text-paper"
+								: "text-muted hover:text-paper",
+						]}
+					>
+						{link.label}
+					</a>
+				))
+			}
+			<a
+				href="/contact/"
+				class="ml-2 rounded-full bg-ember px-4 py-1.5 text-sm font-bold text-ink transition hover:bg-ember-2"
+			>
+				Contact
+			</a>
+		</nav>
+		<details class="relative md:hidden">
+			<summary
+				class="list-none rounded-full border border-white/10 px-3 py-1.5 text-sm font-semibold text-paper [&::-webkit-details-marker]:hidden"
+			>
+				Menu
+			</summary>
+			<nav
+				class="absolute right-0 mt-2 w-48 rounded-2xl border border-white/10 bg-navy-2 p-2 shadow-xl"
+				aria-label="Mobile"
+			>
+				{
+					links.map((link) => (
+						<a
+							href={link.href}
+							class="block rounded-xl px-3 py-2 text-sm font-semibold text-paper hover:bg-white/5"
+						>
+							{link.label}
+						</a>
+					))
+				}
+				<a
+					href="/contact/"
+					class="mt-1 block rounded-xl bg-ember px-3 py-2 text-center text-sm font-bold text-ink"
+				>
+					Contact
+				</a>
+			</nav>
+		</details>
+	</div>
+</header>

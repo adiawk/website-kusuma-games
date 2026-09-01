@@ -1,0 +1,54 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import LegalDoc from "../../components/LegalDoc.astro";
+import { studio } from "../../data/studio";
+import { games } from "../../data/games";
+---
+
+<Layout
+	title="Support"
+	description={`Player support for ${studio.name}. Email ${studio.email} for help with our games.`}
+>
+	<LegalDoc
+		eyebrow="SUPPORT"
+		title="Support"
+		lede="A real person reads this inbox. Use it for bugs, store questions, and privacy requests."
+	>
+		<p>
+			<strong>Email:</strong>{" "}
+			<a href={`mailto:${studio.email}`}>{studio.email}</a>
+		</p>
+		<p>
+			Please include the game name, device, OS version, and what you expected vs what happened. If
+			you can, attach a screenshot.
+		</p>
+
+		<h2>Games</h2>
+		<ul>
+			{
+				games.map((game) => (
+					<li>
+						<a href={`/support/${game.slug}/`}>{game.title}</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<h2>Useful links</h2>
+		<ul>
+			<li><a href="/privacy/">Privacy Policy</a></li>
+			<li><a href="/terms/">Terms of Service</a></li>
+			<li><a href="/account-deletion/">Account deletion</a></li>
+			<li>
+				<a href={studio.itchUrl} rel="noreferrer">
+					Playable builds on itch.io
+				</a>
+			</li>
+		</ul>
+
+		<p>
+			We aim to reply within a few days. Store reviewers: this page is the Support URL for Kusuma
+			Games. Per-game URLs are listed above.
+		</p>
+	</LegalDoc>
+</Layout>

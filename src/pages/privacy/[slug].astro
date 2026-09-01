@@ -1,0 +1,79 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import LegalDoc from "../../components/LegalDoc.astro";
+import { studio } from "../../data/studio";
+import { games, getGame, type Game } from "../../data/games";
+
+export function getStaticPaths() {
+	return games.map((game) => ({ params: { slug: game.slug } }));
+}
+
+const game = getGame(Astro.params.slug as string) as Game;
+---
+
+<Layout
+	title={`${game.shortTitle} Privacy Policy`}
+	description={`Privacy Policy for ${game.title} by ${studio.name}.`}
+	image={game.cover}
+>
+	<LegalDoc
+		eyebrow="PRIVACY"
+		title={`${game.shortTitle} — Privacy Policy`}
+		lede={`${studio.legalName} · ${game.title}. Last updated ${studio.lastUpdated}.`}
+	>
+		<p>
+			This policy is for <strong>{game.title}</strong> only. Studio-wide practices are on the <a href="/privacy/">Kusuma Games Privacy Policy</a>. Operator: {studio.founder} ({studio.region}).
+		</p>
+		<p>
+			Contact: <a href={`mailto:${studio.email}`}>{studio.email}</a>
+			{" · "}
+			<a href={`/support/${game.slug}/`}>Support for this game</a>
+		</p>
+
+		<h2>The app / game</h2>
+		<ul>
+			<li>Publisher: {studio.legalName}</li>
+			<li>Platforms: {game.platforms.join(", ")}</li>
+			<li>Intended audience: {game.ageRating}</li>
+			<li>User accounts: {game.hasAccounts ? "Yes" : "No"}</li>
+			<li>Advertising SDK: {game.usesAds ? "Yes" : "No"}</li>
+			<li>Analytics SDK: {game.usesAnalytics ? "Yes" : "No"}</li>
+			<li>In-app purchases: {game.usesIap ? "Yes" : "No"}</li>
+			<li>Local save / device storage: {game.localStorage ? "May store progress on device" : "Not used by us"}</li>
+		</ul>
+
+		<h2>Data we handle</h2>
+		{game.privacyNotes.map((note) => <p>{note}</p>)}
+
+		<h2>Third parties</h2>
+		{
+			game.itchUrl ? (
+				<p>
+					Distribution or browser play may go through itch.io (
+					<a href={game.itchUrl} rel="noreferrer">
+						{game.itchUrl}
+					</a>
+					). itch.io processes data under its own terms.
+				</p>
+			) : (
+				<p>No storefront SDK is bundled by Kusuma Games in the current build.</p>
+			)
+		}
+		<p>
+			This website is hosted on Cloudflare. See <a href="https://www.cloudflare.com/privacypolicy/" rel="noreferrer">Cloudflare’s privacy policy</a>.
+		</p>
+
+		<h2>Children</h2>
+		<p>
+			{game.shortTitle} is intended for a general audience ({game.ageRating}). We do not knowingly
+			collect children’s personal information and we do not use targeted advertising.
+		</p>
+
+		<h2>Requests</h2>
+		<p>
+			Email <a href={`mailto:${studio.email}?subject=${encodeURIComponent(game.shortTitle + " privacy")}`}>{studio.email}</a> to
+			ask us to delete email or other information you sent about this game. There is no in-game
+			account to delete. See <a href="/account-deletion/">account deletion</a>.
+		</p>
+	</LegalDoc>
+</Layout>

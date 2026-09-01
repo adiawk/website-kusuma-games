@@ -1,0 +1,104 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { games, getGame, type Game } from "../../data/games";
+
+export function getStaticPaths() {
+	return games.map((game) => ({ params: { slug: game.slug } }));
+}
+
+const { slug } = Astro.params;
+const game = getGame(slug as string) as Game;
+---
+
+<Layout title={game.title} description={game.tagline} image={game.cover}>
+	<section class="border-b border-line bg-navy">
+		<div class="mx-auto grid max-w-6xl items-center gap-10 px-5 py-12 md:grid-cols-2 md:py-16">
+			<div>
+				<p class="text-xs font-bold uppercase tracking-[0.18em] text-ember-2">
+					{game.statusLabel} · {game.year}
+				</p>
+				<h1 class="font-display mt-3 text-4xl font-extrabold md:text-5xl">{game.title}</h1>
+				<p class="mt-4 text-lg leading-relaxed text-muted">{game.tagline}</p>
+				<p class="mt-3 text-sm text-muted">{game.genre} · {game.platforms.join(" · ")}</p>
+				<div class="mt-7 flex flex-wrap gap-3">
+					{
+						game.playUrl && (
+							<a
+								href={game.playUrl}
+								rel="noreferrer"
+								class="rounded-full bg-ember px-5 py-2.5 text-sm font-bold text-ink hover:bg-ember-2"
+							>
+								Play on itch.io
+							</a>
+						)
+					}
+					{
+						!game.playUrl && game.itchUrl && (
+							<a
+								href={game.itchUrl}
+								rel="noreferrer"
+								class="rounded-full bg-ember px-5 py-2.5 text-sm font-bold text-ink hover:bg-ember-2"
+							>
+								View on itch.io
+							</a>
+						)
+					}
+					<a
+						href={`/support/${game.slug}/`}
+						class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-bold hover:border-white/30"
+					>
+						Support
+					</a>
+				</div>
+			</div>
+			<img src={game.cover} alt="" class="w-full rounded-3xl border border-white/10 object-cover" />
+		</div>
+	</section>
+
+	<section class="mx-auto grid max-w-6xl gap-12 px-5 py-14 md:grid-cols-3">
+		<div class="md:col-span-2">
+			<h2 class="font-display text-2xl font-bold">About</h2>
+			{
+				game.longDescription.split("\n\n").map((paragraph) => (
+					<p class="mt-4 leading-relaxed text-muted">{paragraph}</p>
+				))
+			}
+			{
+				game.screenshots.length > 0 && (
+					<div class="mt-8 grid gap-3 sm:grid-cols-2">
+						{game.screenshots.map((shot, index) => (
+							<img
+								src={shot}
+								alt={`${game.shortTitle} screenshot ${index + 1}`}
+								class="rounded-2xl border border-white/8"
+							/>
+						))}
+					</div>
+				)
+			}
+		</div>
+		<aside class="space-y-6 rounded-3xl border border-white/8 bg-navy-2 p-6">
+			<div>
+				<h2 class="font-display text-lg font-bold">Features</h2>
+				<ul class="mt-3 space-y-2 text-sm text-muted">
+					{game.features.map((feature) => <li>— {feature}</li>)}
+				</ul>
+			</div>
+			<div>
+				<h2 class="font-display text-lg font-bold">Credits</h2>
+				<ul class="mt-3 space-y-2 text-sm text-muted">
+					{game.credits.map((line) => <li>{line}</li>)}
+				</ul>
+			</div>
+			<div class="space-y-2 border-t border-white/8 pt-4 text-sm">
+				<a class="block font-semibold text-sky hover:text-paper" href={`/privacy/${game.slug}/`}>
+					Privacy Policy
+				</a>
+				<a class="block font-semibold text-sky hover:text-paper" href={`/support/${game.slug}/`}>
+					Support
+				</a>
+				<a class="block font-semibold text-sky hover:text-paper" href="/terms/">Terms of Service</a>
+			</div>
+		</aside>
+	</section>
+</Layout>

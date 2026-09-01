@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LegalDoc from "../components/LegalDoc.astro";
+import { studio } from "../data/studio";
+import { games } from "../data/games";
+
+const withAccounts = games.filter((game) => game.hasAccounts);
+---
+
+<Layout
+	title="Account deletion"
+	description={`How to request deletion of data held by ${studio.name}. Current games do not use accounts.`}
+>
+	<LegalDoc
+		eyebrow="PRIVACY"
+		title="Account deletion"
+		lede="Google Play requires a public URL for account deletion when an app lets players create an account. This page is that URL."
+	>
+		<h2>Current games</h2>
+		{
+			withAccounts.length === 0 ? (
+				<p>
+					<strong>No Kusuma Games title currently offers account creation.</strong> There is no
+					in-game account to delete. Progress, if any, lives on your device (local save or browser
+					storage). Uninstalling the app or clearing site data removes it.
+				</p>
+			) : (
+				<ul>
+					{withAccounts.map((game) => (
+						<li>
+							<a href={`/games/${game.slug}/`}>{game.title}</a>
+						</li>
+					))}
+				</ul>
+			)
+		}
+
+		<h2>Request deletion of information we hold</h2>
+		<p>
+			If you have emailed us, we may still have that message. To ask us to delete it, write to{" "}
+			<a href={`mailto:${studio.email}?subject=Delete%20my%20data`}>{studio.email}</a> from the
+			same address and say you want your data deleted.
+		</p>
+		<p>We will confirm when it is gone. We aim to do this within 30 days.</p>
+
+		<h2>If a future game adds accounts</h2>
+		<p>
+			That game’s privacy page will describe how to delete the account in-app and on this site. We
+			will also put the URL in Play Console’s account-deletion field.
+		</p>
+		<p>
+			Studio privacy: <a href="/privacy/">Privacy Policy</a>
+		</p>
+	</LegalDoc>
+</Layout>

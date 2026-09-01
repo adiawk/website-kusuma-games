@@ -1,0 +1,23 @@
+---
+interface Props {
+	class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<a href="/" class:list={["group inline-flex items-center gap-2.5", className]} aria-label="Kusuma Games home">
+	<span class="grid size-9 place-items-center rounded-lg bg-navy-2 ring-1 ring-white/10">
+		<svg viewBox="0 0 32 32" class="size-6" aria-hidden="true">
+			<path
+				d="M16 4.5c2 3.7 4 5.6 7.6 7.6-3.6 2-5.6 3.9-7.6 7.6-2-3.7-4-5.6-7.6-7.6 3.6-2 5.6-3.9 7.6-7.6Z"
+				fill="currentColor"
+				class="text-ember"></path>
+			<circle cx="16" cy="12.1" r="1.7" fill="#f4efe6"></circle>
+		</svg>
+	</span>
+	<span class="leading-none">
+		<span class="font-display block text-[15px] font-extrabold tracking-[0.18em] text-paper">KUSUMA</span>
+		<span class="font-display block text-[10px] font-semibold tracking-[0.32em] text-sky">GAMES</span>
+	</span>
+</a>

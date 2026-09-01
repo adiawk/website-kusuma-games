@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+	--font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+	--font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+	--color-ink: #070b14;
+	--color-navy: #0b1220;
+	--color-navy-2: #121a2b;
+	--color-navy-3: #1a2438;
+	--color-paper: #f4efe6;
+	--color-muted: #9aa6b8;
+	--color-ember: #ff7a2f;
+	--color-ember-2: #ff9a4a;
+	--color-sky: #7ec8ff;
+	--color-line: rgb(255 255 255 / 0.08);
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: var(--font-sans);
+	background: var(--color-ink);
+	color: var(--color-paper);
+	min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+	font-family: var(--font-display);
+}
+
+::selection {
+	background: color-mix(in srgb, var(--color-ember) 80%, white);
+	color: var(--color-ink);
+}
+
+.bg-grid {
+	background-image:
+		linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+		linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+	background-size: 48px 48px;
+}
+
+.bg-glow {
+	background:
+		radial-gradient(900px 480px at 80% -10%, rgb(255 122 47 / 0.18), transparent 55%),
+		radial-gradient(700px 400px at 0% 20%, rgb(126 200 255 / 0.1), transparent 50%);
+}

@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GameCard from "../../components/GameCard.astro";
+import { games } from "../../data/games";
+---
+
+<Layout
+	title="Games"
+	description="Original games from Kusuma Games — mobile, prototypes, and jam experiments."
+>
+	<section class="border-b border-line bg-glow">
+		<div class="mx-auto max-w-6xl px-5 py-14 md:py-16">
+			<p class="font-display text-xs font-bold tracking-[0.22em] text-sky">CATALOG</p>
+			<h1 class="font-display mt-3 text-4xl font-extrabold md:text-5xl">Our games</h1>
+			<p class="mt-4 max-w-2xl text-lg text-muted">
+				Titles designed and built at Kusuma Games. Work for other studios lives on the <a class="text-sky hover:text-paper" href="/about/">about</a> page as selected credits.
+			</p>
+		</div>
+	</section>
+	<section class="mx-auto max-w-6xl px-5 py-12">
+		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+			{games.map((game) => <GameCard game={game} />)}
+		</div>
+	</section>
+</Layout>

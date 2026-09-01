@@ -1,0 +1,70 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import LegalDoc from "../../components/LegalDoc.astro";
+import { studio } from "../../data/studio";
+import { games, getGame, type Game } from "../../data/games";
+
+export function getStaticPaths() {
+	return games.map((game) => ({ params: { slug: game.slug } }));
+}
+
+const game = getGame(Astro.params.slug as string) as Game;
+---
+
+<Layout
+	title={`${game.shortTitle} Support`}
+	description={`Support for ${game.title}. Contact ${studio.email}.`}
+	image={game.cover}
+>
+	<LegalDoc
+		eyebrow="SUPPORT"
+		title={`${game.shortTitle} — Support`}
+		lede={`Help for ${game.title} by ${studio.name}.`}
+	>
+		<p>
+			<strong>Email:</strong>{" "}
+			<a href={`mailto:${studio.email}?subject=${encodeURIComponent(game.shortTitle + " support")}`}>
+				{studio.email}
+			</a>
+		</p>
+		<p>
+			This is the support page for <strong>{game.title}</strong>. A human at Kusuma Games reads
+			these messages. Social profiles and the homepage are not support channels.
+		</p>
+
+		<h2>Before you write</h2>
+		<ul>
+			<li>Game: {game.title}</li>
+			<li>Version / where you play: {game.platforms.join(", ")}{game.itchUrl ? " · itch.io" : ""}</li>
+			<li>Device and OS</li>
+			<li>What you did, what you expected, what happened</li>
+		</ul>
+
+		{
+			game.itchUrl && (
+				<p>
+					Current public build:{" "}
+					<a href={game.itchUrl} rel="noreferrer">
+						{game.itchUrl}
+					</a>
+				</p>
+			)
+		}
+
+		<h2>Policies</h2>
+		<ul>
+			<li>
+				<a href={`/privacy/${game.slug}/`}>Privacy Policy for {game.shortTitle}</a>
+			</li>
+			<li>
+				<a href="/terms/">Terms of Service</a>
+			</li>
+			<li>
+				<a href="/account-deletion/">Account deletion</a>
+			</li>
+			<li>
+				<a href={`/games/${game.slug}/`}>Game page</a>
+			</li>
+		</ul>
+	</LegalDoc>
+</Layout>

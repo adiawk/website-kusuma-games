@@ -1,0 +1,71 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LegalDoc from "../components/LegalDoc.astro";
+import { studio } from "../data/studio";
+import { games } from "../data/games";
+---
+
+<Layout
+	title="Terms of Service"
+	description={`Terms of Service for ${studio.name} games and this website.`}
+>
+	<LegalDoc
+		eyebrow="LEGAL"
+		title="Terms of Service"
+		lede={`Last updated ${studio.lastUpdated}. These terms are a simple license for players — not legal advice.`}
+	>
+		<p>
+			By playing a Kusuma Games title or using this website, you agree to these terms. If you do
+			not agree, do not use the games or the site.
+		</p>
+		<p>
+			Operator: {studio.legalName} ({studio.founder}), {studio.region}. Contact:{" "}
+			<a href={`mailto:${studio.email}`}>{studio.email}</a>
+		</p>
+
+		<h2>License</h2>
+		<p>
+			We grant you a personal, non-exclusive, non-transferable, revocable license to play our games
+			for your own entertainment. You do not own the games, art, audio, or code. You may not
+			redistribute, sell, reverse engineer (except where the law allows), or claim our work as yours.
+		</p>
+
+		<h2>Our games</h2>
+		<ul>
+			{games.map((game) => (
+				<li>
+					<a href={`/games/${game.slug}/`}>{game.title}</a>
+				</li>
+			))}
+		</ul>
+		<p>
+			itch.io, Google Play, and the App Store have their own terms. Those apply in addition to
+			these when you use those stores.
+		</p>
+
+		<h2>Content and conduct</h2>
+		<p>
+			Do not use our games or site for anything illegal, to harass others, or to cheat in a way
+			that harms other players. We may stop offering a game or a build at any time.
+		</p>
+
+		<h2>Disclaimer</h2>
+		<p>
+			Games and this site are provided “as is”. We make no warranty that they will be error-free,
+			uninterrupted, or fit for a particular purpose. To the fullest extent allowed by law,{" "}
+			{studio.legalName} is not liable for indirect or consequential damages, or for data loss on
+			your device.
+		</p>
+
+		<h2>Privacy</h2>
+		<p>
+			How we handle information is described in the <a href="/privacy/">Privacy Policy</a>.
+		</p>
+
+		<h2>Changes</h2>
+		<p>
+			We may update these terms. The date at the top is the latest version. Continued use after a
+			change means you accept the new terms.
+		</p>
+	</LegalDoc>
+</Layout>

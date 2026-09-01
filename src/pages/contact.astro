@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LegalDoc from "../components/LegalDoc.astro";
+import { studio } from "../data/studio";
+---
+
+<Layout
+	title="Contact"
+	description={`Contact ${studio.name} at ${studio.email}.`}
+>
+	<LegalDoc
+		eyebrow="STUDIO"
+		title="Contact"
+		lede="For players, store review, and press."
+	>
+		<p>
+			<strong>Email:</strong>{" "}
+			<a href={`mailto:${studio.email}`}>{studio.email}</a>
+		</p>
+		<p>
+			For players, store review, and press. We read this inbox.
+		</p>
+		<p>
+			Studio: {studio.legalName}<br />
+			Founder: {studio.founder}<br />
+			Region: {studio.region}
+		</p>
+		<p>
+			Playable catalog:{" "}
+			<a href={studio.itchUrl} rel="noreferrer">{studio.itchUrl}</a>
+		</p>
+		<ul>
+			<li><a href="/support/">Support</a></li>
+			<li><a href="/privacy/">Privacy Policy</a></li>
+			<li><a href="/games/">Games</a></li>
+		</ul>
+	</LegalDoc>
+</Layout>

@@ -1,0 +1,105 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import LegalDoc from "../../components/LegalDoc.astro";
+import { studio } from "../../data/studio";
+import { games } from "../../data/games";
+---
+
+<Layout
+	title="Privacy Policy"
+	description={`Privacy Policy for ${studio.name} games. How we handle player data.`}
+>
+	<LegalDoc
+		eyebrow="LEGAL"
+		title="Privacy Policy"
+		lede={`${studio.legalName} (“we”, “us”). Last updated ${studio.lastUpdated}. This is a public policy for store listings and players — not legal advice.`}
+	>
+		<p>
+			This policy describes how {studio.legalName} handles information when you play our games or
+			use this website. The operator is {studio.founder}, based in {studio.region}.
+		</p>
+		<p>
+			Contact: <a href={`mailto:${studio.email}`}>{studio.email}</a>
+		</p>
+
+		<h2>Who this covers</h2>
+		<p>
+			This studio-wide policy applies to kusuma.games-style pages on this site and to original
+			Kusuma Games titles listed below. Each game also has its own page you can paste into Google
+			Play or App Store Connect:
+		</p>
+		<ul>
+			{
+				games.map((game) => (
+					<li>
+						<a href={`/privacy/${game.slug}/`}>{game.title}</a>
+					</li>
+				))
+			}
+		</ul>
+		<p>
+			Games credited from other studios (Kajewdev, AimToMite, Artbid, and similar) are not operated
+			by {studio.name}. Their publishers’ policies apply.
+		</p>
+
+		<h2>What we collect today</h2>
+		<p>
+			Current Kusuma Games titles do <strong>not</strong> create user accounts, do not include
+			Kusuma Games advertising SDKs, and do not include Kusuma Games analytics SDKs. We do not run
+			a player database.
+		</p>
+		<p>We may receive:</p>
+		<ul>
+			<li>
+				<strong>Email you send us</strong> (support, feedback). We use it only to reply and to fix
+				issues. We keep it as long as the conversation is useful, then delete it.
+			</li>
+			<li>
+				<strong>Standard website logs</strong> from hosting (Cloudflare). These can include IP
+				address, user agent, and the page requested, used to serve and protect the site. See <a href="https://www.cloudflare.com/privacypolicy/" rel="noreferrer">Cloudflare’s privacy policy</a>.
+			</li>
+			<li>
+				<strong>itch.io</strong> when you play or download there. itch.io is a separate service
+				with its own policy.
+			</li>
+			<li>
+				<strong>Local save data</strong> on your device or browser for some games (progress). That
+				data stays on the device unless you clear it.
+			</li>
+		</ul>
+
+		<h2>What we do not do</h2>
+		<ul>
+			<li>We do not sell personal information.</li>
+			<li>We do not use your data for targeted advertising.</li>
+			<li>We do not currently use third-party ad, attribution, or crash SDKs in our own builds.</li>
+		</ul>
+
+		<h2>Children</h2>
+		<p>
+			Our games are intended as Everyone / low-age-rating experiences (school stationery, jams,
+			puzzles). We do not knowingly collect personal information from children. We do not show
+			targeted ads to children. If you believe a child has sent us personal information, email <a href={`mailto:${studio.email}`}>{studio.email}</a> and we will delete it.
+		</p>
+
+		<h2>When this will change</h2>
+		<p>
+			If a Google Play or App Store build adds ads, in-app purchases, analytics, accounts, or
+			other data practices, we will update the relevant game privacy page <strong>before</strong> that
+			build ships, and we will list the third parties involved.
+		</p>
+
+		<h2>Your requests</h2>
+		<p>
+			Email <a href={`mailto:${studio.email}`}>{studio.email}</a> to ask what we hold, to correct
+			it, or to delete it. Because we do not run accounts, “delete my account” usually means deleting
+			email we received from you. See also <a href="/account-deletion/">account deletion</a>.
+		</p>
+
+		<h2>This website</h2>
+		<p>
+			This site is a static studio page. It does not set first-party analytics cookies. Hosting and
+			CDN services may process technical data as described above.
+		</p>
+	</LegalDoc>
+</Layout>

@@ -1,0 +1,77 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CreditCard from "../components/CreditCard.astro";
+import { studio } from "../data/studio";
+import { awards, creditStudios } from "../data/credits";
+---
+
+<Layout
+	title="About"
+	description={`About ${studio.name}, the indie Unity studio founded by ${studio.founder}.`}
+>
+	<section class="border-b border-line bg-glow">
+		<div class="mx-auto max-w-3xl px-5 py-14 md:py-16">
+			<p class="font-display text-xs font-bold tracking-[0.22em] text-sky">ABOUT</p>
+			<h1 class="font-display mt-3 text-4xl font-extrabold md:text-5xl">{studio.name}</h1>
+			<p class="mt-5 text-lg leading-relaxed text-muted">{studio.about}</p>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-3xl px-5 py-12">
+		<h2 class="font-display text-2xl font-bold">Who we are</h2>
+		<p class="mt-4 leading-relaxed text-muted">
+			{studio.founder} is a Unity game programmer and indie developer. After years shipping mobile
+			and simulation games with other studios, Kusuma Games is the home for original work — starting
+			with <a class="text-sky hover:text-paper" href="/games/stationery-defenders/">Stationery Defenders</a>.
+		</p>
+		<p class="mt-4 leading-relaxed text-muted">
+			The studio is based in {studio.region}. We work in Unity, care about readable gameplay, and
+			publish first on itch.io while store builds are in progress.
+		</p>
+
+		<h2 class="font-display mt-10 text-2xl font-bold">Recognition</h2>
+		<ul class="mt-4 space-y-3">
+			{
+				awards.map((award) => (
+					<li class="rounded-2xl border border-white/8 bg-navy-2 p-4">
+						<p class="font-semibold text-paper">{award.title}</p>
+						<p class="text-sm text-muted">
+							{award.year} · {award.work}
+						</p>
+					</li>
+				))
+			}
+		</ul>
+
+		<p class="mt-8 text-sm text-muted">
+			Playable builds and older projects live on
+			<a class="text-sky hover:text-paper" href={studio.itchUrl} rel="noreferrer">itch.io</a>.
+			For press, players, or store review, use
+			<a class="text-sky hover:text-paper" href={`mailto:${studio.email}`}>{studio.email}</a>.
+		</p>
+	</section>
+
+	<section class="border-t border-line bg-navy">
+		<div class="mx-auto max-w-6xl px-5 py-14">
+			<h2 class="font-display text-2xl font-bold">Selected credits</h2>
+			<p class="mt-2 max-w-2xl text-muted">
+				Shipped as a programmer with other studios. Not Kusuma Games products.
+			</p>
+			{
+				creditStudios.map((group) => (
+					<div class="mt-10">
+						<h3 class="font-display text-xl font-bold">
+							{group.studio}
+							<span class="text-base font-normal text-muted"> · {group.years}</span>
+						</h3>
+						<div class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+							{group.games.map((game) => (
+								<CreditCard game={game} />
+							))}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</section>
+</Layout>
