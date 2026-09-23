@@ -1,0 +1,34 @@
+---
+interface Props {
+	title: string;
+	align?: "center" | "left";
+	tone?: "light" | "dark";
+	id?: string;
+}
+
+const { title, align = "center", tone = "light", id } = Astro.props;
+---
+
+<div
+	id={id}
+	class:list={[
+		"scroll-mt-24",
+		align === "center" ? "text-center" : "text-left",
+	]}
+>
+	<h2
+		class:list={[
+			"font-display text-[22px] font-bold uppercase tracking-[0.18em] md:text-[25px]",
+			tone === "light" ? "text-ink" : "text-paper",
+		]}
+	>
+		{title}
+	</h2>
+	<span
+		class:list={[
+			"mt-3 block h-[5px] w-[52px]",
+			align === "center" ? "mx-auto" : "",
+			tone === "light" ? "bg-ink" : "bg-ember",
+		]}
+	></span>
+</div>

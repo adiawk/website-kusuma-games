@@ -1,65 +1,63 @@
 ---
 import { studio } from "../data/studio";
 import { games } from "../data/games";
-import Wordmark from "./Wordmark.astro";
 
 const legal = [
 	{ href: "/privacy/", label: "Privacy Policy" },
 	{ href: "/terms/", label: "Terms of Service" },
 	{ href: "/support/", label: "Support" },
-	{ href: "/contact/", label: "Contact" },
 	{ href: "/account-deletion/", label: "Account deletion" },
 ];
 ---
 
-<footer class="mt-auto border-t border-line bg-navy">
-	<div class="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-4">
-		<div class="md:col-span-1">
-			<Wordmark />
-			<p class="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-				{studio.shortDescription}
+<footer id="contact" class="mt-auto scroll-mt-24 bg-navy text-paper">
+	<div class="geo-band h-14" aria-hidden="true"></div>
+	<div class="mx-auto max-w-5xl px-5 py-16 text-center">
+		<h2 class="font-display text-[22px] font-bold uppercase tracking-[0.18em]">Contact</h2>
+		<span class="mx-auto mt-3 block h-[5px] w-[52px] bg-ember"></span>
+	</div>
+	<div class="mx-auto grid max-w-5xl gap-12 px-5 pb-16 text-center md:grid-cols-3 md:text-left">
+		<div>
+			<h3 class="font-display text-lg font-bold">Players & press</h3>
+			<p class="mt-3 text-sm leading-relaxed text-muted">
+				For bugs, store review, and press, email a real person at Kusuma Games.
+			</p>
+			<p class="mt-4">
+				<a class="text-ember-2 hover:text-paper" href={`mailto:${studio.email}`}>{studio.email}</a>
+			</p>
+			<p class="mt-2">
+				<a class="text-sm text-muted hover:text-paper" href="/support/">Support</a>
 			</p>
 		</div>
 		<div>
-			<p class="font-display text-xs font-bold tracking-[0.2em] text-sky">GAMES</p>
-			<ul class="mt-3 space-y-2">
+			<h3 class="font-display text-lg font-bold">Studio</h3>
+			<p class="mt-3 text-sm leading-relaxed text-muted">
+				{studio.legalName}<br />
+				{studio.founder}<br />
+				{studio.region}
+			</p>
+			<p class="mt-4">
+				<a class="text-sm text-ember-2 hover:text-paper" href={studio.itchUrl} rel="noreferrer">
+					itch.io
+				</a>
+			</p>
+		</div>
+		<div>
+			<h3 class="font-display text-lg font-bold">Games & legal</h3>
+			<ul class="mt-3 space-y-2 text-sm">
 				{
-					games.slice(0, 4).map((game) => (
+					games.slice(0, 3).map((game) => (
 						<li>
-							<a class="text-sm text-paper/80 hover:text-ember-2" href={`/games/${game.slug}/`}>
+							<a class="text-paper/80 hover:text-ember-2" href={`/games/${game.slug}/`}>
 								{game.shortTitle}
 							</a>
 						</li>
 					))
 				}
-				<li>
-					<a class="text-sm text-muted hover:text-paper" href="/games/">All games</a>
-				</li>
-			</ul>
-		</div>
-		<div>
-			<p class="font-display text-xs font-bold tracking-[0.2em] text-sky">STUDIO</p>
-			<ul class="mt-3 space-y-2">
-				<li><a class="text-sm text-paper/80 hover:text-ember-2" href="/about/">About</a></li>
-				<li>
-					<a class="text-sm text-paper/80 hover:text-ember-2" href={studio.itchUrl} rel="noreferrer">
-						itch.io
-					</a>
-				</li>
-				<li>
-					<a class="text-sm text-paper/80 hover:text-ember-2" href={`mailto:${studio.email}`}>
-						{studio.email}
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div>
-			<p class="font-display text-xs font-bold tracking-[0.2em] text-sky">LEGAL</p>
-			<ul class="mt-3 space-y-2">
 				{
 					legal.map((item) => (
 						<li>
-							<a class="text-sm text-paper/80 hover:text-ember-2" href={item.href}>
+							<a class="text-muted hover:text-paper" href={item.href}>
 								{item.label}
 							</a>
 						</li>
@@ -68,8 +66,10 @@ const legal = [
 			</ul>
 		</div>
 	</div>
-	<div class="border-t border-line">
-		<div class="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-5 text-xs text-muted sm:flex-row sm:justify-between">
+	<div class="border-t border-white/10">
+		<div
+			class="mx-auto flex max-w-5xl flex-col gap-2 px-5 py-5 text-center text-xs text-muted sm:flex-row sm:justify-between sm:text-left"
+		>
 			<p>© {new Date().getFullYear()} {studio.legalName}. {studio.region}.</p>
 			<p>Made by {studio.founder}.</p>
 		</div>

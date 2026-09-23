@@ -9,5 +9,9 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"routes": [
+		{ "pattern": "kusumagames.com", "custom_domain": true },
+		{ "pattern": "www.kusumagames.com", "custom_domain": true }
+	]
 }

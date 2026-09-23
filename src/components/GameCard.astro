@@ -6,37 +6,18 @@ interface Props {
 }
 
 const { game } = Astro.props;
-
-const statusTone: Record<Game["status"], string> = {
-	"in-development": "bg-ember/15 text-ember-2",
-	prototype: "bg-sky/15 text-sky",
-	jam: "bg-white/8 text-paper/80",
-	released: "bg-emerald-400/15 text-emerald-300",
-};
 ---
 
-<a
-	href={`/games/${game.slug}/`}
-	class="group overflow-hidden rounded-2xl border border-white/8 bg-navy-2 transition hover:-translate-y-0.5 hover:border-ember/40"
->
-	<div class="relative aspect-[16/10] overflow-hidden bg-navy-3">
-		<img
-			src={game.cover}
-			alt=""
-			class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-		/>
-		<span
-			class:list={[
-				"absolute left-3 top-3 rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider",
-				statusTone[game.status],
-			]}
-		>
-			{game.statusLabel}
-		</span>
-	</div>
-	<div class="p-5">
-		<p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">{game.genre}</p>
-		<h3 class="font-display mt-1 text-xl font-bold text-paper">{game.shortTitle}</h3>
-		<p class="mt-2 text-sm leading-relaxed text-muted">{game.tagline}</p>
+<a href={`/games/${game.slug}/`} class="group relative block overflow-hidden">
+	<img
+		src={game.cover}
+		alt={game.title}
+		class="aspect-[3/4] w-full object-cover object-center transition duration-500 group-hover:scale-[1.04]"
+	/>
+	<div
+		class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink/80 via-ink/10 to-transparent p-3 opacity-0 transition group-hover:opacity-100"
+	>
+		<p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-ember-2">{game.statusLabel}</p>
+		<h3 class="font-display text-lg font-bold text-paper">{game.shortTitle}</h3>
 	</div>
 </a>

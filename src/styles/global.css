@@ -8,7 +8,9 @@
 	--color-navy-2: #121a2b;
 	--color-navy-3: #1a2438;
 	--color-paper: #f4efe6;
+	--color-paper-2: #ebe4d8;
 	--color-muted: #9aa6b8;
+	--color-ash: #5c6573;
 	--color-ember: #ff7a2f;
 	--color-ember-2: #ff9a4a;
 	--color-sky: #7ec8ff;
@@ -21,8 +23,8 @@ html {
 
 body {
 	font-family: var(--font-sans);
-	background: var(--color-ink);
-	color: var(--color-paper);
+	background: var(--color-paper);
+	color: var(--color-ink);
 	min-height: 100vh;
 }
 
@@ -39,15 +41,57 @@ h4,
 	color: var(--color-ink);
 }
 
-.bg-grid {
-	background-image:
-		linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
-		linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
-	background-size: 48px 48px;
+.geo-overlay {
+	background-image: url("/images/geo-lines.svg");
+	background-size: cover;
+	background-position: center;
+	pointer-events: none;
 }
 
-.bg-glow {
-	background:
-		radial-gradient(900px 480px at 80% -10%, rgb(255 122 47 / 0.18), transparent 55%),
-		radial-gradient(700px 400px at 0% 20%, rgb(126 200 255 / 0.1), transparent 50%);
+.geo-band {
+	background-color: var(--color-ink);
+	background-image:
+		radial-gradient(circle, rgb(255 255 255 / 0.14) 1px, transparent 1.4px),
+		linear-gradient(135deg, rgb(255 122 47 / 0.08), transparent 40%);
+	background-size: 18px 18px, 100% 100%;
+}
+
+.scroll-mouse {
+	width: 22px;
+	height: 34px;
+	border: 2px solid rgb(255 255 255 / 0.85);
+	border-radius: 12px;
+	position: relative;
+}
+
+.scroll-mouse::after {
+	content: "";
+	position: absolute;
+	top: 6px;
+	left: 50%;
+	width: 3px;
+	height: 7px;
+	margin-left: -1.5px;
+	border-radius: 2px;
+	background: rgb(255 255 255 / 0.9);
+	animation: scroll-wheel 1.5s ease-in-out infinite;
+}
+
+@keyframes scroll-wheel {
+	0% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+}
+
+summary {
+	list-style: none;
+}
+
+summary::-webkit-details-marker {
+	display: none;
 }

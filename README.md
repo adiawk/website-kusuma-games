@@ -28,25 +28,25 @@ npm run cf:dev
 1. Log in once: `npx wrangler login`
 2. Deploy: `npm run deploy`
 
-That publishes a `*.workers.dev` URL. Add a custom domain later in the Cloudflare dashboard (Workers → kusuma-games → Settings → Domains).
+That publishes to Cloudflare. The public site is [kusumagames.com](https://kusumagames.com). A `*.workers.dev` URL may still exist as a backup.
 
 Config lives in [`wrangler.jsonc`](wrangler.jsonc). No Worker script is required; the site is static files only.
 
 ## Store URLs
 
-After deploy, paste these into Play Console / App Store Connect (example for Stationery Defenders):
+Paste these into Play Console / App Store Connect (example for Stationery Defenders):
 
-| Field | Path |
+| Field | URL |
 | --- | --- |
-| Marketing | `/games/stationery-defenders/` |
-| Privacy Policy | `/privacy/stationery-defenders/` |
-| Support | `/support/stationery-defenders/` |
-| Account deletion | `/account-deletion/` |
+| Marketing | https://kusumagames.com/games/stationery-defenders/ |
+| Privacy Policy | https://kusumagames.com/privacy/stationery-defenders/ |
+| Support | https://kusumagames.com/support/stationery-defenders/ |
+| Account deletion | https://kusumagames.com/account-deletion/ |
 
-Studio-wide privacy and support: `/privacy/`, `/support/`.
+Studio-wide privacy and support: https://kusumagames.com/privacy/ , https://kusumagames.com/support/
 
 ## Content
 
 Edit [`src/data/studio.ts`](src/data/studio.ts) (email, name), [`src/data/games.ts`](src/data/games.ts), and [`src/data/credits.ts`](src/data/credits.ts).
 
-Replace `support@kusumagames.com` before any store listing goes live. Privacy and terms are templates — review them if you add ads, IAP, analytics, or accounts.
+Replace `support@kusumagames.com` before any store listing goes live. Privacy and terms are templates — review them with counsel if you change login, ads, IAP, or analytics.

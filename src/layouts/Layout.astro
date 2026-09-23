@@ -8,12 +8,14 @@ interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	overlayHeader?: boolean;
 }
 
 const {
 	title,
 	description,
-	image = "/images/games/stationery-defenders.png",
+	image = "/images/hero-stationery-defenders.png",
+	overlayHeader = false,
 } = Astro.props;
 
 const pageTitle = title === studio.name ? title : `${title} · ${studio.name}`;
@@ -35,7 +37,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).to
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
 		<meta name="description" content={description} />
-		<meta name="theme-color" content="#070b14" />
+		<meta name="theme-color" content="#0b1220" />
 		<link rel="canonical" href={canonical} />
 		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
@@ -43,9 +45,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).to
 		<meta property="og:image" content={new URL(image, Astro.site ?? Astro.url.origin).toString()} />
 		<meta name="twitter:card" content="summary_large_image" />
 	</head>
-	<body class="flex min-h-screen flex-col bg-ink text-paper antialiased">
+	<body class="flex min-h-screen flex-col bg-paper text-ink antialiased">
 		<Header />
-		<main class="flex-1">
+		<main class:list={["flex-1", overlayHeader ? "" : "pt-[74px]"]}>
 			<slot />
 		</main>
 		<Footer />

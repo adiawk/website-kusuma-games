@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://kusuma-games.adikecapan.workers.dev',
+  site: 'https://kusumagames.com',
   trailingSlash: 'always',
   vite: {
     plugins: [tailwindcss()]

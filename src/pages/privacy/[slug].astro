@@ -35,17 +35,114 @@ const game = getGame(Astro.params.slug as string) as Game;
 			<li>Publisher: {studio.legalName}</li>
 			<li>Platforms: {game.platforms.join(", ")}</li>
 			<li>Intended audience: {game.ageRating}</li>
-			<li>User accounts: {game.hasAccounts ? "Yes" : "No"}</li>
-			<li>Advertising SDK: {game.usesAds ? "Yes" : "No"}</li>
-			<li>Analytics SDK: {game.usesAnalytics ? "Yes" : "No"}</li>
-			<li>In-app purchases: {game.usesIap ? "Yes" : "No"}</li>
+			<li>
+				User accounts: {game.hasAccounts
+					? `Yes — ${[game.googleSignIn && "Google Sign-In", game.guestLogin && "guest login"].filter(Boolean).join(" or ")}`
+					: "No"}
+			</li>
+			<li>Advertising SDK: {game.usesAds ? "Yes (Unity LevelPlay)" : "No"}</li>
+			<li>
+				Analytics / tracking: {game.usesFirebase
+					? "Yes (Firebase Analytics)"
+					: game.usesAnalytics
+						? "Yes"
+						: "No"}
+			</li>
+			<li>
+				Login / save database: {game.usesD1 ? "Yes (Cloudflare D1)" : "No cloud player database"}
+			</li>
+			<li>In-app purchases: {game.usesIap ? "Yes (Google Play / App Store)" : "No"}</li>
 			<li>Local save / device storage: {game.localStorage ? "May store progress on device" : "Not used by us"}</li>
 		</ul>
 
 		<h2>Data we handle</h2>
 		{game.privacyNotes.map((note) => <p>{note}</p>)}
 
+		{
+			game.hasAccounts && (
+				<>
+					<h2>Accounts</h2>
+					<p>
+						You can play with a Google account or as a guest. We store that player record and
+						saves in Cloudflare D1. Guest profiles can later be linked to Google Sign-In. You can
+						delete an account in the game (where the store requires it) or through our{" "}
+						<a href="/account-deletion/">account deletion</a> page.
+					</p>
+				</>
+			)
+		}
+
+		{
+			game.usesAds && (
+				<>
+					<h2>Ads</h2>
+					<p>
+						Ads are served through Unity LevelPlay (mediation). LevelPlay and the networks it uses
+						to fill ads may collect your advertising ID and similar device signals to serve and
+						measure ads, unless you opt out in device settings or the session is treated as
+						child-directed. See the{" "}
+						<a href="https://unity.com/legal/privacy-policy" rel="noreferrer">Unity Privacy Policy</a>{" "}
+						(LevelPlay). Networks that LevelPlay bids out to have their own policies as well.
+					</p>
+				</>
+			)
+		}
+
+		{
+			game.usesIap && (
+				<>
+					<h2>In-app purchases</h2>
+					<p>
+						Purchases are billed by Google Play or the Apple App Store. Those stores handle
+						payment details. We keep enough information in Cloudflare D1 (for example product ID
+						and purchase token) to deliver and restore items. Refunds follow the store’s policy,
+						not Kusuma Games directly.
+					</p>
+				</>
+			)
+		}
+
 		<h2>Third parties</h2>
+		{
+			game.googleSignIn && (
+				<p>
+					Google Sign-In and Google Play (if you install from Play) are subject to the{" "}
+					<a href="https://policies.google.com/privacy" rel="noreferrer">Google Privacy Policy</a>.
+				</p>
+			)
+		}
+		{
+			game.usesFirebase && (
+				<p>
+					Firebase Analytics is subject to{" "}
+					<a href="https://firebase.google.com/support/privacy" rel="noreferrer">Firebase Privacy</a>.
+				</p>
+			)
+		}
+		{
+			game.usesAds && (
+				<p>
+					Unity LevelPlay ads are subject to the{" "}
+					<a href="https://unity.com/legal/privacy-policy" rel="noreferrer">Unity Privacy Policy</a>.
+				</p>
+			)
+		}
+		{
+			game.usesD1 && (
+				<p>
+					Player login and save data are stored in Cloudflare D1. See{" "}
+					<a href="https://www.cloudflare.com/privacypolicy/" rel="noreferrer">Cloudflare’s privacy policy</a>.
+				</p>
+			)
+		}
+		{
+			game.usesIap && (
+				<p>
+					App Store purchases on Apple devices are also subject to{" "}
+					<a href="https://www.apple.com/legal/privacy/" rel="noreferrer">Apple’s privacy policy</a>.
+				</p>
+			)
+		}
 		{
 			game.itchUrl ? (
 				<p>
@@ -56,7 +153,7 @@ const game = getGame(Astro.params.slug as string) as Game;
 					). itch.io processes data under its own terms.
 				</p>
 			) : (
-				<p>No storefront SDK is bundled by Kusuma Games in the current build.</p>
+				<p>No itch.io SDK is bundled by Kusuma Games in the current store build.</p>
 			)
 		}
 		<p>
@@ -64,16 +161,46 @@ const game = getGame(Astro.params.slug as string) as Game;
 		</p>
 
 		<h2>Children</h2>
-		<p>
-			{game.shortTitle} is intended for a general audience ({game.ageRating}). We do not knowingly
-			collect children’s personal information and we do not use targeted advertising.
-		</p>
+		{
+			game.hasAccounts || game.usesAds ? (
+				<p>
+					{game.shortTitle} may be listed as {game.ageRating}. Google Sign-In is not for children
+					under 13. We do not knowingly collect personal information from children for a
+					Google-linked account or for personalized ads. If a child has used the game in a way
+					that sent us personal data, email{" "}
+					<a href={`mailto:${studio.email}`}>{studio.email}</a> and we will delete it.
+				</p>
+			) : (
+				<p>
+					{game.shortTitle} is intended for a general audience ({game.ageRating}). We do not
+					knowingly collect children’s personal information and we do not use targeted advertising
+					in this title.
+				</p>
+			)
+		}
 
 		<h2>Requests</h2>
-		<p>
-			Email <a href={`mailto:${studio.email}?subject=${encodeURIComponent(game.shortTitle + " privacy")}`}>{studio.email}</a> to
-			ask us to delete email or other information you sent about this game. There is no in-game
-			account to delete. See <a href="/account-deletion/">account deletion</a>.
-		</p>
+		{
+			game.hasAccounts ? (
+				<p>
+					Email{" "}
+					<a href={`mailto:${studio.email}?subject=${encodeURIComponent(game.shortTitle + " privacy")}`}>
+						{studio.email}
+					</a>{" "}
+					to access, correct, or delete information about this game. To delete a Google or guest
+					account, use the in-game delete option or{" "}
+					<a href="/account-deletion/">account deletion</a>.
+				</p>
+			) : (
+				<p>
+					Email{" "}
+					<a href={`mailto:${studio.email}?subject=${encodeURIComponent(game.shortTitle + " privacy")}`}>
+						{studio.email}
+					</a>{" "}
+					to access, correct, or delete information about this game. See{" "}
+					<a href="/account-deletion/">account deletion</a>.
+				</p>
+			)
+		}
 	</LegalDoc>
 </Layout>

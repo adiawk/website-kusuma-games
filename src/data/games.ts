@@ -15,14 +15,20 @@ export type Game = {
 	featured: boolean;
 	cover: string;
 	screenshots: string[];
+	promoImages?: string[];
 	itchUrl?: string;
 	playUrl?: string;
+	youtubeId?: string;
 	features: string[];
 	credits: string[];
 	ageRating: string;
 	hasAccounts: boolean;
+	googleSignIn: boolean;
+	guestLogin: boolean;
 	usesAds: boolean;
 	usesAnalytics: boolean;
+	usesFirebase: boolean;
+	usesD1: boolean;
 	usesIap: boolean;
 	localStorage: boolean;
 	privacyNotes: string[];
@@ -37,42 +43,57 @@ export const games: Game[] = [
 		description:
 			"A merge tower-defense made for GameSeed 2026. Your pencil case becomes a base, your stationery comes alive, and a mountain of homework is trying to eat your free time.",
 		longDescription:
-			"Bring a childhood daydream to life: every pen, eraser, and pencil is secretly a defender. Place heroes on a grid, drag them into position, and merge three of a kind to rank them up. Pick a level-up card, hold the line, and keep the homework monsters off your desk.\n\nStationery Defenders is the first mobile title from Kusuma Games — currently playable in the browser on itch.io while we prepare a store build.",
+			"Made for GameSeed 2026 — Mobile Category. Team: Kusuma Games (ID 22).\n\nBring a childhood daydream to life: every pen, eraser, and pencil is secretly a defender. Place heroes on a grid, drag them into position, and merge three of a kind to rank them up. Pick a level-up card, hold the line, and keep the homework monsters off your desk.\n\nStationery Defenders is the first mobile title from Kusuma Games. Play on itch.io while we prepare a store build.",
 		genre: "Strategy · Tower Defense",
 		status: "in-development",
 		statusLabel: "In development",
 		year: "2026",
 		platforms: ["Mobile", "HTML5"],
 		featured: true,
-		cover: "/images/games/stationery-defenders.png",
+		cover: "/images/hero-stationery-defenders.png",
 		screenshots: [
 			"/images/screens/stationery-1.png",
 			"/images/screens/stationery-2.png",
 			"/images/screens/stationery-3.png",
 		],
+		promoImages: [
+			"/images/screens/stationery-itch-header.jpg",
+			"/images/screens/stationery-itch-2.png",
+			"/images/screens/stationery-itch-3.png",
+			"/images/screens/stationery-itch-4.png",
+		],
 		itchUrl: "https://adiawk.itch.io/stationery-defender-td-tycoon",
 		playUrl: "https://adiawk.itch.io/stationery-defender-td-tycoon",
+		youtubeId: "jVSL5L3P6sw",
 		features: [
-			"Select a level-up card each round",
-			"Touch and drag heroes across the grid",
-			"Place three of the same hero to auto-merge",
-			"Defend your desk from homework monsters",
+			"Choose a level-up card and play it",
+			"Defend your desk with stationery heroes",
+			"Merge three of the same hero to rank them up",
+			"Collect, upgrade, and awaken your squad",
+			"Sign in with Google or play as a guest",
 		],
 		credits: [
-			"Kusuma Games Studio — GameSeed 2026, Mobile category (team ID 22)",
+			"Kusuma Games — GameSeed 2026, Mobile category (team ID 22)",
 			"Adi Wijaya Kusuma — design & programming",
 		],
 		ageRating: "Everyone / 3+",
-		hasAccounts: false,
-		usesAds: false,
-		usesAnalytics: false,
-		usesIap: false,
+		hasAccounts: true,
+		googleSignIn: true,
+		guestLogin: true,
+		usesAds: true,
+		usesAnalytics: true,
+		usesFirebase: true,
+		usesD1: true,
+		usesIap: true,
 		localStorage: true,
 		privacyNotes: [
-			"The current build is HTML5 hosted on itch.io. Playing it in a browser is subject to itch.io’s own privacy policy and cookies.",
-			"The game may store progress locally on your device (for example in browser storage). That save data stays on the device unless you clear it.",
-			"This title does not create user accounts, does not include in-app purchases, and does not currently include advertising or third-party analytics SDKs.",
-			"If a future Google Play or App Store build adds ads, analytics, or purchases, this page will be updated before that build ships.",
+			"Players can choose Google Sign-In or continue as a guest. Google Sign-In is handled by Google; we receive a user identifier and, when Google provides them, name and email so we can create or restore your game profile in our database.",
+			"Guest play uses an anonymous player ID we create. Guest progress is stored in our Cloudflare D1 database and is tied to that ID (and this device) until you link a Google account.",
+			"Login, player profile, progress, inventory, and purchase entitlements are stored on your device and in Cloudflare D1 (our game database) so you can restore them after reinstalling or switching devices when signed in.",
+			"The game shows ads through Unity LevelPlay (an ad mediation platform). LevelPlay and the networks it fills ads from may use your device advertising ID and similar device signals to serve and measure ads. You can reset or limit ad tracking in your device settings.",
+			"In-app purchases are processed by Google Play or the Apple App Store. We do not receive your full payment card number. We may store a purchase token or product ID in D1 so we can unlock what you bought.",
+			"Firebase Analytics records gameplay events, device and app version, crash or performance data, and identifiers so we can run and improve the game. Firebase is not used to store your login or save data.",
+			"An HTML5 build may still be hosted on itch.io. Playing in a browser is also subject to itch.io’s privacy policy.",
 		],
 	},
 	{
@@ -96,6 +117,7 @@ export const games: Game[] = [
 			"/images/screens/dungeon-2.png",
 		],
 		itchUrl: "https://adiawk.itch.io/dungeon-deckbuilder",
+		playUrl: "https://adiawk.itch.io/dungeon-deckbuilder",
 		features: [
 			"Turn-based card combat with energy, Block, and intents",
 			"Chapter map with combat, elite, reward, and boss rooms",
@@ -105,8 +127,12 @@ export const games: Game[] = [
 		credits: ["Adi Wijaya Kusuma — design & programming (Unity 6, C#)"],
 		ageRating: "Everyone / 10+",
 		hasAccounts: false,
+		googleSignIn: false,
+		guestLogin: false,
 		usesAds: false,
 		usesAnalytics: false,
+		usesFirebase: false,
+		usesD1: false,
 		usesIap: false,
 		localStorage: true,
 		privacyNotes: [
@@ -134,6 +160,7 @@ export const games: Game[] = [
 		screenshots: [],
 		itchUrl: "https://adiawk.itch.io/kontrakan-kocak",
 		playUrl: "https://adiawk.itch.io/kontrakan-kocak",
+		youtubeId: "Yh0KiB7T1mQ",
 		features: [
 			"Place traps for a birthday prank",
 			"Stay unseen while you set them up",
@@ -146,8 +173,12 @@ export const games: Game[] = [
 		],
 		ageRating: "Everyone / 7+",
 		hasAccounts: false,
+		googleSignIn: false,
+		guestLogin: false,
 		usesAds: false,
 		usesAnalytics: false,
+		usesFirebase: false,
+		usesD1: false,
 		usesIap: false,
 		localStorage: false,
 		privacyNotes: [
@@ -174,12 +205,17 @@ export const games: Game[] = [
 		screenshots: [],
 		itchUrl: "https://adiawk.itch.io/flappy-boo-halloween",
 		playUrl: "https://adiawk.itch.io/flappy-boo-halloween",
+		youtubeId: "2v8LNHazS6o",
 		features: ["One-button tap timing", "Halloween skin", "Play in the browser"],
 		credits: ["Adi Wijaya Kusuma — programming"],
 		ageRating: "Everyone / 3+",
 		hasAccounts: false,
+		googleSignIn: false,
+		guestLogin: false,
 		usesAds: false,
 		usesAnalytics: false,
+		usesFirebase: false,
+		usesD1: false,
 		usesIap: false,
 		localStorage: false,
 		privacyNotes: [
@@ -204,12 +240,18 @@ export const games: Game[] = [
 		cover: "/images/games/lompat-karung.png",
 		screenshots: [],
 		itchUrl: "https://adiawk.itch.io/lompat-karung",
+		playUrl: "https://adiawk.itch.io/lompat-karung",
+		youtubeId: "FuToc-9ddWc",
 		features: ["Independence Day theme", "Timing / sack-race fantasy"],
 		credits: ["Adi Wijaya Kusuma — programming"],
 		ageRating: "Everyone / 3+",
 		hasAccounts: false,
+		googleSignIn: false,
+		guestLogin: false,
 		usesAds: false,
 		usesAnalytics: false,
+		usesFirebase: false,
+		usesD1: false,
 		usesIap: false,
 		localStorage: false,
 		privacyNotes: [

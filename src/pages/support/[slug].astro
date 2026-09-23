@@ -38,6 +38,8 @@ const game = getGame(Astro.params.slug as string) as Game;
 			<li>Version / where you play: {game.platforms.join(", ")}{game.itchUrl ? " · itch.io" : ""}</li>
 			<li>Device and OS</li>
 			<li>What you did, what you expected, what happened</li>
+			{game.hasAccounts && <li>Login type: Google Sign-In or guest (and player ID if shown in Settings)</li>}
+			{game.usesIap && <li>For purchases: store (Google Play / App Store) and order ID</li>}
 		</ul>
 
 		{

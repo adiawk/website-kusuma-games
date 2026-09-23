@@ -119,6 +119,11 @@ export const creditStudios: CreditStudio[] = [
 
 export const awards = [
 	{
+		title: "Selected — GameSeed 2026 Top 3 Mobile Category",
+		year: "2026",
+		work: "Stationery Defenders: TD Tycoon",
+	},
+	{
 		title: "1st place — Lomba Cipta Aplikasi Game Kepemiluan, KPU RI",
 		year: "2020",
 		work: "Yuk Ke TPS",

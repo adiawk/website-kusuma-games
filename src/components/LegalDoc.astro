@@ -8,11 +8,11 @@ interface Props {
 const { eyebrow, title, lede } = Astro.props;
 ---
 
-<section class="border-b border-line bg-glow">
-	<div class="mx-auto max-w-3xl px-5 py-14 md:py-16">
+<section class="bg-navy text-paper">
+	<div class="mx-auto max-w-3xl px-5 py-16 md:py-20">
 		{
 			eyebrow && (
-				<p class="font-display text-xs font-bold tracking-[0.22em] text-sky">{eyebrow}</p>
+				<p class="font-display text-xs font-bold tracking-[0.22em] text-ember-2">{eyebrow}</p>
 			)
 		}
 		<h1 class="font-display mt-3 text-4xl font-extrabold tracking-tight md:text-5xl">{title}</h1>
@@ -21,7 +21,7 @@ const { eyebrow, title, lede } = Astro.props;
 </section>
 <div class="mx-auto max-w-3xl px-5 py-12">
 	<div
-		class="space-y-5 text-[17px] leading-relaxed text-paper/85 [&_a]:font-semibold [&_a]:text-sky [&_a]:underline-offset-2 hover:[&_a]:underline [&_h2]:font-display [&_h2]:pt-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-paper [&_h3]:font-display [&_h3]:pt-2 [&_h3]:text-lg [&_h3]:font-bold [&_li]:ml-5 [&_li]:list-disc [&_ul]:space-y-2"
+		class="space-y-5 text-[17px] leading-relaxed text-navy-2 [&_a]:font-semibold [&_a]:text-ember [&_a]:underline-offset-2 hover:[&_a]:underline [&_h2]:font-display [&_h2]:pt-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-ink [&_h3]:font-display [&_h3]:pt-2 [&_h3]:text-lg [&_h3]:font-bold [&_ol]:ml-5 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ul]:ml-0 [&_ul]:space-y-2 [&_ul_li]:ml-5 [&_ul_li]:list-disc"
 	>
 		<slot />
 	</div>

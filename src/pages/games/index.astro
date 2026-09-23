@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import GameCard from "../../components/GameCard.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
 import { games } from "../../data/games";
 ---
 
@@ -8,17 +9,17 @@ import { games } from "../../data/games";
 	title="Games"
 	description="Original games from Kusuma Games — mobile, prototypes, and jam experiments."
 >
-	<section class="border-b border-line bg-glow">
-		<div class="mx-auto max-w-6xl px-5 py-14 md:py-16">
-			<p class="font-display text-xs font-bold tracking-[0.22em] text-sky">CATALOG</p>
-			<h1 class="font-display mt-3 text-4xl font-extrabold md:text-5xl">Our games</h1>
-			<p class="mt-4 max-w-2xl text-lg text-muted">
-				Titles designed and built at Kusuma Games. Work for other studios lives on the <a class="text-sky hover:text-paper" href="/about/">about</a> page as selected credits.
-			</p>
-		</div>
+	<section class="bg-navy px-5 py-16 text-center text-paper md:py-20">
+		<p class="font-display text-xs font-bold tracking-[0.22em] text-ember-2">CATALOG</p>
+		<h1 class="font-display mt-3 text-4xl font-extrabold md:text-5xl">Our games</h1>
+		<p class="mx-auto mt-4 max-w-2xl text-lg text-muted">
+			Titles designed and built at Kusuma Games. Work for other studios lives on the
+			<a class="text-ember-2 hover:text-paper" href="/about/">about</a> page as selected credits.
+		</p>
 	</section>
-	<section class="mx-auto max-w-6xl px-5 py-12">
-		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+	<section class="bg-paper px-5 py-16 md:py-20">
+		<SectionHeading title="Our Games" />
+		<div class="mx-auto mt-12 grid max-w-[920px] grid-cols-2 gap-2 md:grid-cols-3">
 			{games.map((game) => <GameCard game={game} />)}
 		</div>
 	</section>

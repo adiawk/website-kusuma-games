@@ -4,71 +4,111 @@ import Wordmark from "./Wordmark.astro";
 const pathname = Astro.url.pathname;
 
 const links = [
-	{ href: "/games/", label: "Games" },
-	{ href: "/about/", label: "About" },
-	{ href: "/support/", label: "Support" },
+	{ href: "/", label: "Home", match: "home" },
+	{ href: "/#games", label: "Games", match: "games" },
+	{ href: "/#about", label: "About", match: "about" },
+	{ href: "/#credits", label: "Credits", match: "credits" },
 ];
 
-function isActive(href: string) {
-	if (href === "/games/") return pathname.startsWith("/games");
-	if (href === "/about/") return pathname.startsWith("/about");
-	if (href === "/support/") return pathname.startsWith("/support");
-	return pathname === href;
+const contactLinks = [
+	{ href: "/contact/", label: "Contact" },
+	{ href: "/support/", label: "Support" },
+	{ href: "/privacy/", label: "Privacy" },
+	{ href: "/terms/", label: "Terms" },
+];
+
+function isActive(match: string) {
+	if (match === "home") return pathname === "/";
+	if (match === "games") return pathname.startsWith("/games");
+	if (match === "about") return pathname.startsWith("/about");
+	return false;
 }
+
+const contactOpen =
+	pathname.startsWith("/contact") ||
+	pathname.startsWith("/support") ||
+	pathname.startsWith("/privacy") ||
+	pathname.startsWith("/terms") ||
+	pathname.startsWith("/account-deletion");
 ---
 
-<header class="sticky top-0 z-50 border-b border-line bg-ink/80 backdrop-blur-md">
-	<div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5">
+<header class="fixed inset-x-0 top-0 z-50 bg-navy/92 backdrop-blur-md">
+	<div class="mx-auto flex h-[74px] max-w-6xl items-center justify-between gap-4 px-5">
 		<Wordmark />
-		<nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+		<nav class="hidden items-center gap-7 md:flex" aria-label="Primary">
 			{
 				links.map((link) => (
 					<a
 						href={link.href}
 						class:list={[
-							"rounded-full px-3.5 py-1.5 text-sm font-semibold tracking-wide transition",
-							isActive(link.href)
-								? "bg-white/8 text-paper"
-								: "text-muted hover:text-paper",
+							"text-[15px] tracking-wide transition",
+							isActive(link.match) ? "text-ember" : "text-paper/90 hover:text-ember-2",
 						]}
 					>
 						{link.label}
 					</a>
 				))
 			}
-			<a
-				href="/contact/"
-				class="ml-2 rounded-full bg-ember px-4 py-1.5 text-sm font-bold text-ink transition hover:bg-ember-2"
-			>
-				Contact
-			</a>
+			<details class="relative">
+				<summary
+					class:list={[
+						"cursor-pointer text-[15px] tracking-wide transition hover:text-ember-2",
+						contactOpen ? "text-ember" : "text-paper/90",
+					]}
+				>
+					Contact
+				</summary>
+				<div
+					class="absolute right-0 top-full z-50 mt-3 min-w-44 border border-white/10 bg-navy py-2 shadow-xl"
+				>
+					{
+						contactLinks.map((item) => (
+							<a
+								href={item.href}
+								class="block px-4 py-2 text-sm text-paper/90 hover:bg-white/5 hover:text-ember-2"
+							>
+								{item.label}
+							</a>
+						))
+					}
+				</div>
+			</details>
 		</nav>
 		<details class="relative md:hidden">
 			<summary
-				class="list-none rounded-full border border-white/10 px-3 py-1.5 text-sm font-semibold text-paper [&::-webkit-details-marker]:hidden"
+				class="flex size-10 cursor-pointer items-center justify-center text-paper"
+				aria-label="Open menu"
 			>
-				Menu
+				<span class="flex flex-col gap-1.5" aria-hidden="true">
+					<span class="block h-px w-5 bg-paper"></span>
+					<span class="block h-px w-5 bg-paper"></span>
+					<span class="block h-px w-5 bg-paper"></span>
+				</span>
 			</summary>
 			<nav
-				class="absolute right-0 mt-2 w-48 rounded-2xl border border-white/10 bg-navy-2 p-2 shadow-xl"
+				class="absolute right-0 mt-3 w-52 border border-white/10 bg-navy p-2 shadow-xl"
 				aria-label="Mobile"
 			>
 				{
 					links.map((link) => (
 						<a
 							href={link.href}
-							class="block rounded-xl px-3 py-2 text-sm font-semibold text-paper hover:bg-white/5"
+							class="block px-3 py-2.5 text-sm text-paper hover:bg-white/5 hover:text-ember-2"
 						>
 							{link.label}
 						</a>
 					))
 				}
-				<a
-					href="/contact/"
-					class="mt-1 block rounded-xl bg-ember px-3 py-2 text-center text-sm font-bold text-ink"
-				>
-					Contact
-				</a>
+				{
+					contactLinks.map((item) => (
+						<a
+							href={item.href}
+							class="block px-3 py-2.5 text-sm text-paper/80 hover:bg-white/5 hover:text-ember-2"
+						>
+							{item.label}
+						</a>
+					))
+				}
 			</nav>
 		</details>
 	</div>

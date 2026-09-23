@@ -8,97 +8,113 @@ export function getStaticPaths() {
 
 const { slug } = Astro.params;
 const game = getGame(slug as string) as Game;
+const hero = game.cover;
+const playHereUrl = game.playUrl ?? game.itchUrl;
 ---
 
-<Layout title={game.title} description={game.tagline} image={game.cover}>
-	<section class="border-b border-line bg-navy">
-		<div class="mx-auto grid max-w-6xl items-center gap-10 px-5 py-12 md:grid-cols-2 md:py-16">
-			<div>
-				<p class="text-xs font-bold uppercase tracking-[0.18em] text-ember-2">
-					{game.statusLabel} · {game.year}
-				</p>
-				<h1 class="font-display mt-3 text-4xl font-extrabold md:text-5xl">{game.title}</h1>
-				<p class="mt-4 text-lg leading-relaxed text-muted">{game.tagline}</p>
-				<p class="mt-3 text-sm text-muted">{game.genre} · {game.platforms.join(" · ")}</p>
-				<div class="mt-7 flex flex-wrap gap-3">
-					{
-						game.playUrl && (
-							<a
-								href={game.playUrl}
-								rel="noreferrer"
-								class="rounded-full bg-ember px-5 py-2.5 text-sm font-bold text-ink hover:bg-ember-2"
-							>
-								Play on itch.io
-							</a>
-						)
-					}
-					{
-						!game.playUrl && game.itchUrl && (
-							<a
-								href={game.itchUrl}
-								rel="noreferrer"
-								class="rounded-full bg-ember px-5 py-2.5 text-sm font-bold text-ink hover:bg-ember-2"
-							>
-								View on itch.io
-							</a>
-						)
-					}
-					<a
-						href={`/support/${game.slug}/`}
-						class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-bold hover:border-white/30"
-					>
-						Support
-					</a>
-				</div>
-			</div>
-			<img src={game.cover} alt="" class="w-full rounded-3xl border border-white/10 object-cover" />
-		</div>
-	</section>
-
-	<section class="mx-auto grid max-w-6xl gap-12 px-5 py-14 md:grid-cols-3">
-		<div class="md:col-span-2">
-			<h2 class="font-display text-2xl font-bold">About</h2>
+<Layout title={game.title} description={game.tagline} image={game.cover} overlayHeader>
+	<section class="relative min-h-[70vh] overflow-hidden bg-ink text-paper">
+		<img src={hero} alt="" class="absolute inset-0 h-full w-full object-cover object-center" />
+		<div class="absolute inset-0 bg-ink/50"></div>
+		<div class="relative z-10 mx-auto flex min-h-[70vh] max-w-4xl flex-col items-center justify-end px-5 pb-16 pt-28 text-center">
+			<p class="text-xs font-bold uppercase tracking-[0.18em] text-ember-2">
+				{game.statusLabel} · {game.year}
+			</p>
+			<h1 class="font-display mt-3 text-4xl font-extrabold md:text-6xl">{game.title}</h1>
+			<p class="mt-4 max-w-xl text-lg text-paper/85">{game.tagline}</p>
+			<p class="mt-2 text-sm text-muted">{game.genre} · {game.platforms.join(" · ")}</p>
 			{
-				game.longDescription.split("\n\n").map((paragraph) => (
-					<p class="mt-4 leading-relaxed text-muted">{paragraph}</p>
-				))
-			}
-			{
-				game.screenshots.length > 0 && (
-					<div class="mt-8 grid gap-3 sm:grid-cols-2">
-						{game.screenshots.map((shot, index) => (
-							<img
-								src={shot}
-								alt={`${game.shortTitle} screenshot ${index + 1}`}
-								class="rounded-2xl border border-white/8"
-							/>
-						))}
+				playHereUrl && (
+					<div class="mt-8">
+						<a
+							href={playHereUrl}
+							rel="noreferrer"
+							class="inline-block bg-ember px-8 py-2.5 text-sm font-bold text-ink hover:bg-ember-2"
+						>
+							Play Here
+						</a>
 					</div>
 				)
 			}
 		</div>
-		<aside class="space-y-6 rounded-3xl border border-white/8 bg-navy-2 p-6">
-			<div>
-				<h2 class="font-display text-lg font-bold">Features</h2>
-				<ul class="mt-3 space-y-2 text-sm text-muted">
-					{game.features.map((feature) => <li>— {feature}</li>)}
-				</ul>
+	</section>
+
+	<section class="bg-paper">
+		<div class="mx-auto grid max-w-6xl gap-12 px-5 py-14 md:grid-cols-3">
+			<div class="md:col-span-2">
+				<h2 class="font-display text-2xl font-bold">About</h2>
+				{
+					game.longDescription.split("\n\n").map((paragraph) => (
+						<p class="mt-4 leading-relaxed text-ash">{paragraph}</p>
+					))
+				}
+				{
+					game.youtubeId && (
+						<div class="mt-8 overflow-hidden bg-ink">
+							<iframe
+								class="aspect-video w-full"
+								src={`https://www.youtube-nocookie.com/embed/${game.youtubeId}`}
+								title={`${game.shortTitle} trailer`}
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+								allowfullscreen
+								referrerpolicy="strict-origin-when-cross-origin"
+								loading="lazy"
+							/>
+						</div>
+					)
+				}
+				{
+					game.promoImages && game.promoImages.length > 0 && (
+						<div class="mt-8 space-y-4">
+							{game.promoImages.map((shot, index) => (
+								<img
+									src={shot}
+									alt={`${game.shortTitle} ${index + 1}`}
+									class="w-full"
+								/>
+							))}
+						</div>
+					)
+				}
+				{
+					game.screenshots.length > 0 && (
+						<div class="mt-8 grid gap-3 sm:grid-cols-2">
+							{game.screenshots.map((shot, index) => (
+								<img
+									src={shot}
+									alt={`${game.shortTitle} screenshot ${index + 1}`}
+									class="w-full object-cover"
+								/>
+							))}
+						</div>
+					)
+				}
 			</div>
-			<div>
-				<h2 class="font-display text-lg font-bold">Credits</h2>
-				<ul class="mt-3 space-y-2 text-sm text-muted">
-					{game.credits.map((line) => <li>{line}</li>)}
-				</ul>
-			</div>
-			<div class="space-y-2 border-t border-white/8 pt-4 text-sm">
-				<a class="block font-semibold text-sky hover:text-paper" href={`/privacy/${game.slug}/`}>
-					Privacy Policy
-				</a>
-				<a class="block font-semibold text-sky hover:text-paper" href={`/support/${game.slug}/`}>
-					Support
-				</a>
-				<a class="block font-semibold text-sky hover:text-paper" href="/terms/">Terms of Service</a>
-			</div>
-		</aside>
+			<aside class="space-y-6 border border-ink/10 bg-paper-2 p-6">
+				<div>
+					<h2 class="font-display text-lg font-bold">Features</h2>
+					<ul class="mt-3 space-y-2 text-sm text-ash">
+						{game.features.map((feature) => <li>— {feature}</li>)}
+					</ul>
+				</div>
+				<div>
+					<h2 class="font-display text-lg font-bold">Credits</h2>
+					<ul class="mt-3 space-y-2 text-sm text-ash">
+						{game.credits.map((line) => <li>{line}</li>)}
+					</ul>
+				</div>
+				<div class="space-y-2 border-t border-ink/10 pt-4 text-sm">
+					<a class="block font-semibold text-ember hover:text-ink" href={`/privacy/${game.slug}/`}>
+						Privacy Policy
+					</a>
+					<a class="block font-semibold text-ember hover:text-ink" href={`/support/${game.slug}/`}>
+						Support
+					</a>
+					<a class="block font-semibold text-ember hover:text-ink" href="/terms/">
+						Terms of Service
+					</a>
+				</div>
+			</aside>
+		</div>
 	</section>
 </Layout>

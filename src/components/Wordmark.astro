@@ -1,21 +1,52 @@
 ---
 interface Props {
 	class?: string;
+	size?: "sm" | "lg";
+	linked?: boolean;
 }
 
-const { class: className = "" } = Astro.props;
+const { class: className = "", size = "sm", linked = true } = Astro.props;
+const imgClass = size === "lg" ? "size-[72px]" : "size-9";
+const titleClass = size === "lg" ? "text-3xl md:text-4xl" : "text-[15px]";
+const subClass = size === "lg" ? "mt-1 text-sm md:text-base" : "text-[10px]";
 ---
 
-<a href="/" class:list={["group inline-flex items-center gap-2.5", className]} aria-label="Kusuma Games home">
-	<img
-		src="/images/logo.png"
-		alt=""
-		width="36"
-		height="36"
-		class="size-9 rounded-[10px] ring-1 ring-white/10"
-	/>
-	<span class="leading-none">
-		<span class="font-display block text-[15px] font-extrabold tracking-[0.18em] text-paper">KUSUMA</span>
-		<span class="font-display block text-[10px] font-semibold tracking-[0.32em] text-sky">GAMES</span>
-	</span>
-</a>
+{
+	linked ? (
+		<a href="/" class:list={["group inline-flex items-center gap-2.5", className]} aria-label="Kusuma Games home">
+			<img
+				src="/images/logo.png"
+				alt=""
+				width={size === "lg" ? 72 : 36}
+				height={size === "lg" ? 72 : 36}
+				class:list={[imgClass, "rounded-[10px] ring-1 ring-white/15"]}
+			/>
+			<span class="leading-none">
+				<span class:list={["font-display block font-extrabold tracking-[0.18em] text-paper", titleClass]}>
+					KUSUMA
+				</span>
+				<span class:list={["font-display block font-semibold tracking-[0.32em] text-ember-2", subClass]}>
+					GAMES
+				</span>
+			</span>
+		</a>
+	) : (
+		<div class:list={["inline-flex items-center gap-2.5", className]}>
+			<img
+				src="/images/logo.png"
+				alt=""
+				width={size === "lg" ? 72 : 36}
+				height={size === "lg" ? 72 : 36}
+				class:list={[imgClass, "rounded-[10px] ring-1 ring-white/15"]}
+			/>
+			<span class="leading-none">
+				<span class:list={["font-display block font-extrabold tracking-[0.18em] text-paper", titleClass]}>
+					KUSUMA
+				</span>
+				<span class:list={["font-display block font-semibold tracking-[0.32em] text-ember-2", subClass]}>
+					GAMES
+				</span>
+			</span>
+		</div>
+	)
+}

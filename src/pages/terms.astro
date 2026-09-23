@@ -7,7 +7,7 @@ import { games } from "../data/games";
 
 <Layout
 	title="Terms of Service"
-	description={`Terms of Service for ${studio.name} games and this website.`}
+	description={`Terms of Service for ${studio.name} games, including accounts, ads, and in-app purchases.`}
 >
 	<LegalDoc
 		eyebrow="LEGAL"
@@ -26,8 +26,9 @@ import { games } from "../data/games";
 		<h2>License</h2>
 		<p>
 			We grant you a personal, non-exclusive, non-transferable, revocable license to play our games
-			for your own entertainment. You do not own the games, art, audio, or code. You may not
-			redistribute, sell, reverse engineer (except where the law allows), or claim our work as yours.
+			for your own entertainment. You do not own the games, art, audio, code, or virtual items. You
+			may not redistribute, sell, reverse engineer (except where the law allows), or claim our work
+			as yours.
 		</p>
 
 		<h2>Our games</h2>
@@ -41,6 +42,34 @@ import { games } from "../data/games";
 		<p>
 			itch.io, Google Play, and the App Store have their own terms. Those apply in addition to
 			these when you use those stores.
+		</p>
+
+		<h2>Accounts</h2>
+		<p>
+			Published mobile games may let you play as a <strong>guest</strong> or sign in with{" "}
+			<strong>Google</strong>. Profiles and cloud saves are stored in our Cloudflare D1 database.
+			You are responsible for the Google account you use. Guest progress may be lost if you
+			uninstall, change devices, or clear app data before linking Google. We may suspend or delete
+			accounts that break these terms or store rules.
+		</p>
+		<p>
+			To delete an account, use the in-game option or{" "}
+			<a href="/account-deletion/">account deletion</a>.
+		</p>
+
+		<h2>Ads</h2>
+		<p>
+			Games may show advertisements through Unity LevelPlay (and networks it mediates). Ads are
+			provided by third parties. We are not responsible for the content of those ads. Do not
+			interact with ads in a way that tries to defraud the ad network.
+		</p>
+
+		<h2>In-app purchases</h2>
+		<p>
+			Optional in-app purchases are billed by Google Play or the Apple App Store. Virtual currency,
+			items, and cosmetics are licensed to you; they have no real-world cash value and are not
+			refundable from Kusuma Games except where the store or the law requires it. Ask the store
+			for billing disputes and refunds. Prices and offers can change.
 		</p>
 
 		<h2>Content and conduct</h2>
@@ -59,7 +88,9 @@ import { games } from "../data/games";
 
 		<h2>Privacy</h2>
 		<p>
-			How we handle information is described in the <a href="/privacy/">Privacy Policy</a>.
+			How we handle information — including Google Sign-In, guest IDs, Cloudflare D1 saves, Unity
+			LevelPlay ads, purchases, and Firebase Analytics — is described in the{" "}
+			<a href="/privacy/">Privacy Policy</a>.
 		</p>
 
 		<h2>Changes</h2>

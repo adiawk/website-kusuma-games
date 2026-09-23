@@ -10,8 +10,8 @@ export const studio = {
 	email: "support@kusumagames.com",
 	region: "Indonesia",
 	itchUrl: "https://adiawk.itch.io/",
-	lastUpdated: "2 September 2026",
-	lastUpdatedIso: "2026-09-02",
+	lastUpdated: "20 September 2026",
+	lastUpdatedIso: "2026-09-20",
 } as const;
 
 export type Studio = typeof studio;
