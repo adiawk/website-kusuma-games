@@ -51,11 +51,7 @@ export const games: Game[] = [
 		platforms: ["Mobile", "HTML5"],
 		featured: true,
 		cover: "/images/hero-stationery-defenders.png",
-		screenshots: [
-			"/images/screens/stationery-1.png",
-			"/images/screens/stationery-2.png",
-			"/images/screens/stationery-3.png",
-		],
+		screenshots: [],
 		promoImages: [
 			"/images/screens/stationery-itch-header.jpg",
 			"/images/screens/stationery-itch-2.png",
